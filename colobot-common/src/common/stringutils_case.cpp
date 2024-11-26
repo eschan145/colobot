@@ -1044,14 +1044,14 @@ constexpr char16_t mapping[] = {
 };
 
 // Lookup tables
-constinit std::array<char16_t, 65536> lowercase = {};
-constinit std::array<char16_t, 65536> uppercase = {};
+static std::array<char16_t, 65536> lowercase = {};
+static std::array<char16_t, 65536> uppercase = {};
 
 // true if lookup tables are initialized
-constinit std::atomic_flag initialized;
+static std::atomic_flag initialized;
 
 // Flag to make sure only one thread initializes the lookup tables
-constinit std::once_flag flag = {};
+static std::once_flag flag = {};
 
 // Initializes lookup tables
 void Initialize()
