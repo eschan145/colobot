@@ -495,7 +495,7 @@ void CRobotMain::ChangePhase(Phase phase)
 
     if (m_phase == PHASE_PLAYER_SELECT)
     {
-        if (CResourceManager::DirectoryExists("crashsave"))
+        if (CResourceManager::DirectoryExists("crashsave") && IsVersionSaveSupported("crashsave"))
         {
             GetLogger()->Info("Pre-crash save found!");
             m_ui->GetDialog()->StartQuestion(
@@ -4439,7 +4439,7 @@ void CRobotMain::IOWriteObject(CLevelParserLine* line, CObject* obj,
     line->AddParam("id", std::make_unique<CLevelParserParam>(obj->GetID()));
     line->AddParam("pos", std::make_unique<CLevelParserParam>(obj->GetPosition()/g_unit));
     line->AddParam("angle", std::make_unique<CLevelParserParam>(obj->GetRotation() * Math::RAD_TO_DEG));
-    line->AddParam("zoom", std::make_unique<CLevelParserParam>(obj->GetScale()));
+    line->AddParam("zoom", std::make_unique<CLevelParserParam>(obj->GetScaleForSave()));
 
     if (obj->Implements(ObjectInterfaceType::Old))
     {
@@ -4487,6 +4487,14 @@ void CRobotMain::IOWriteObject(CLevelParserLine* line, CObject* obj,
     }
 }
 
+static bool IsSkip( const CObject* obj )
+{
+    return obj->GetType() == OBJECT_TOTO
+        || !obj->GetPersistent()
+        || IsObjectBeingTransported(obj)
+        || (obj->Implements(ObjectInterfaceType::Destroyable) && dynamic_cast<const CDestroyableObject&>(*obj).IsDying());
+}
+
 //! Saves the current game
 bool CRobotMain::IOWriteScene(const std::filesystem::path& filename,
         const std::filesystem::path& filecbot,
@@ -4509,11 +4517,10 @@ bool CRobotMain::IOWriteScene(const std::filesystem::path& filename,
     line->AddParam("text", std::make_unique<CLevelParserParam>(std::string(info)));
     levelParser.AddLine(std::move(line));
 
-
-    //TODO: Do we need that? It's not used anyway
-    line = std::make_unique<CLevelParserLine>("Version");
-    line->AddParam("maj", std::make_unique<CLevelParserParam>(0));
-    line->AddParam("min", std::make_unique<CLevelParserParam>(1));
+    line = std::make_unique<CLevelParserLine>("GameVersion");
+    line->AddParam("major", std::make_unique<CLevelParserParam>(Version::MAJOR));
+    line->AddParam("minor", std::make_unique<CLevelParserParam>(Version::MINOR));
+    line->AddParam("patch", std::make_unique<CLevelParserParam>(Version::PATCH));
     levelParser.AddLine(std::move(line));
 
 
@@ -4554,9 +4561,7 @@ bool CRobotMain::IOWriteScene(const std::filesystem::path& filename,
     int objRank = 0;
     for (CObject* obj : m_objMan->GetAllObjects())
     {
-        if (obj->GetType() == OBJECT_TOTO) continue;
-        if (IsObjectBeingTransported(obj)) continue;
-        if (obj->Implements(ObjectInterfaceType::Destroyable) && dynamic_cast<CDestroyableObject&>(*obj).IsDying()) continue;
+        if (IsSkip(obj)) continue;
 
         if (obj->Implements(ObjectInterfaceType::Slotted))
         {
@@ -4605,9 +4610,7 @@ bool CRobotMain::IOWriteScene(const std::filesystem::path& filename,
 
     for (CObject* obj : m_objMan->GetAllObjects())
     {
-        if (obj->GetType() == OBJECT_TOTO) continue;
-        if (IsObjectBeingTransported(obj)) continue;
-        if (obj->Implements(ObjectInterfaceType::Destroyable) && dynamic_cast<CDestroyableObject&>(*obj).IsDying()) continue;
+        if (IsSkip(obj)) continue;
 
         if (!SaveFileStack(obj, ostr))
         {
@@ -5693,7 +5696,7 @@ void CRobotMain::QuickSave()
 void CRobotMain::QuickLoad()
 {
     std::filesystem::path dir = m_playerProfile->GetSaveFile("quicksave");
-    if(!CResourceManager::Exists(dir))
+    if(!CResourceManager::Exists(dir) || !IsVersionSaveSupported(dir))
     {
         m_displayText->DisplayError(ERR_NO_QUICK_SLOT, glm::vec3(0.0f,0.0f,0.0f), 15.0f, 60.0f, 1000.0f);
         GetLogger()->Debug("Quicksave slot not found");
@@ -5705,7 +5708,7 @@ void CRobotMain::QuickLoad()
 void CRobotMain::LoadSaveFromDirName(const std::filesystem::path& gameDir)
 {
     std::filesystem::path dir = m_playerProfile->GetSaveFile(gameDir);
-    if(!CResourceManager::Exists(dir))
+    if(!CResourceManager::Exists(dir) || !IsVersionSaveSupported(dir))
     {
         GetLogger()->Error("Save slot not found");
         return;
