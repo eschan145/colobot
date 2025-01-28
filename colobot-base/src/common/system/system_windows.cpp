@@ -325,7 +325,7 @@ LONG WINAPI StackTraceExceptionFilter(LPEXCEPTION_POINTERS exception)
 
         std::string name;
 
-        if (SymFromAddr(process, (ULONG64)stack.AddrPC.Offset, &displacement, pSymbol))
+        if (SymFromAddr(process, static_cast<ULONG64>(stack.AddrPC.Offset), &displacement, pSymbol))
         {
             name = pSymbol->Name;
         }
