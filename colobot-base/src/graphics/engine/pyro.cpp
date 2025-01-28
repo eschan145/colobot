@@ -286,9 +286,63 @@ bool CPyro::Create(PyroType type, CObject* obj, float force)
         assert(obj->Implements(ObjectInterfaceType::Movable));
         dynamic_cast<CMovableObject&>(*obj).GetMotion()->SetAction(MHS_DEADg, 1.0f);
 
-        m_camera->StartCentering(m_object, Math::PI*0.5f, 99.9f, 0.0f, 1.5f);
-        m_camera->StartOver(CAM_OVER_EFFECT_FADEOUT_WHITE, m_pos, 1.0f);
-        m_speed = 1.0f/10.0f;
+        // m_camera->StartCentering(m_object, Math::PI*0.5f, 99.9f, 0.0f, 1.5f);
+        // m_camera->StartOver(CAM_OVER_EFFECT_FADEOUT_WHITE, m_pos, 1.0f);
+        // m_speed = 1.0f/10.0f;
+
+        // Explode the human
+        if (Math::Rand() < 0.5) {
+            for (int part = 0; part < 16; part++)
+            {
+                CreateTriangle(m_object, m_object->GetType(), part);
+                m_engine->DeleteShadowSpot(m_object->GetObjectRank(0));
+                ExploStart();
+
+                for (int i = 0; i < 50; i++)
+                {
+                    glm::vec3 pos = m_pos;
+                    pos.x += (Math::Rand()-0.5f)*m_size*0.2f;
+                    pos.z += (Math::Rand()-0.5f)*m_size*0.2f;
+                    pos.y += (Math::Rand()-0.5f)*m_size*0.5f;
+                    glm::vec3 speed{};
+                    speed.x = (Math::Rand()-0.5f)*15.0f;
+                    speed.z = (Math::Rand()-0.5f)*15.0f;
+                    speed.y = (Math::Rand()-0.5f)*15.0f;
+                    glm::vec2 dim;
+                    dim.x = 0.1f;
+                    dim.y = dim.x;
+                    dim.z = dim.y;
+                    m_particle->CreateParticle(
+                        pos, speed, dim, PARTIBLOOD,
+                        Math::Rand()*3.0f,
+                        Math::Rand()*10.0f+15.0f,
+                        0.5f
+                    );
+                }
+            }
+        }
+        else {
+            for (int i = 0; i < 50; i++)
+            {
+                glm::vec3 pos = m_pos;
+                pos.x += (Math::Rand()-0.5f)*m_size*0.2f;
+                pos.z += (Math::Rand()-0.5f)*m_size*0.2f;
+                pos.y += (Math::Rand()-0.5f)*m_size*0.5f;
+                glm::vec3 speed{};
+                speed.x = (Math::Rand()-0.5f)*5.0f;
+                speed.z = (Math::Rand()-0.5f)*5.0f;
+                speed.y = Math::Rand()*1.0f;
+                glm::vec2 dim;
+                dim.x = 1.0f;
+                dim.y = dim.x;
+                m_particle->CreateParticle(
+                    pos, speed, dim, PARTIBLOOD,
+                    Math::Rand()*24.0f,
+                    0.0f,
+                    0.0f
+                );
+            }
+        }
         return true;
     }
     if ( m_type == PT_DEADW )
@@ -689,7 +743,7 @@ bool CPyro::EventProcess(const Event &event)
     {
         m_lastParticle = m_time;
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 15; i++)
         {
             glm::vec3 pos = m_pos;
             pos.x += (Math::Rand()-0.5f)*m_size*0.2f;

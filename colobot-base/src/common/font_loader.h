@@ -28,6 +28,7 @@
 
 #include "graphics/engine/text.h"
 
+#include <iostream>
 #include <filesystem>
 #include <optional>
 #include <string>
