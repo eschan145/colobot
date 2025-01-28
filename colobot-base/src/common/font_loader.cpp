@@ -58,6 +58,9 @@ bool CFontLoader::Init()
 
             while (std::getline(*stream, line))
             {
+                if (line.ends_with('\r')) {
+                    line.pop_back();
+                }
                 auto parts = StrUtils::Split(line, " =");
 
                 m_fonts[parts[0]] = StrUtils::ToPath(parts[1]);
