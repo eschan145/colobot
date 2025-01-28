@@ -1990,15 +1990,24 @@ bool CEngine::LoadAllTextures()
                     ok = false;
             }
 
-            if (!data.material.detailTexture.empty())
+            const std::filesystem::path& detailTexture = data.material.variableDetail ? GetSecondTexture() : data.material.detailTexture;
+            if (!detailTexture.empty())
             {
                 if (terrain)
-                    data.detailTexture = LoadTexture(data.material.detailTexture, m_terrainTexParams);
+                {
+                    data.detailTexture = LoadTexture(detailTexture, m_terrainTexParams);
+                }
                 else
-                    data.detailTexture = LoadTexture(data.material.detailTexture);
+                {
+                    data.detailTexture = LoadTexture(detailTexture);
+                }
 
                 if (!data.detailTexture.Valid())
                     ok = false;
+            }
+            else
+            {
+                data.detailTexture = Texture();
             }
 
             if (!data.material.materialTexture.empty())
@@ -4755,9 +4764,6 @@ void CEngine::AddBaseObjTriangles(int baseObjRank, const std::vector<Gfx::ModelT
 
         if (!material.emissiveTexture.empty())
             material.emissiveTexture = "objects" / material.emissiveTexture;
-
-        if (material.variableDetail)
-            material.detailTexture = GetSecondTexture();
 
         EngineBaseObjDataTier& data = AddLevel(p1, EngineTriangleType::TRIANGLES, material);
 

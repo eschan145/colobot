@@ -8,54 +8,13 @@ cmake_minimum_required(VERSION 3.21)
 cmake_policy(SET CMP0025 NEW)
 
 project(colobot
-    VERSION 0.2.1.0
+    VERSION 0.3.0
     LANGUAGES C CXX
 )
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED YES)
 set(CMAKE_CXX_EXTENSIONS NO)
-
-##
-# Project version
-##
-set(COLOBOT_VERSION_CODENAME "Gold")
-
-# Used on official releases
-#set(COLOBOT_VERSION_RELEASE_CODENAME "-alpha")
-# Used on unreleased, development builds
-set(COLOBOT_VERSION_UNRELEASED "+alpha")
-
-# Append git characteristics to version
-if(DEFINED COLOBOT_VERSION_UNRELEASED)
-    if(EXISTS "${CMAKE_SOURCE_DIR}/.git")
-        find_package(Git)
-        execute_process(COMMAND ${GIT_EXECUTABLE} rev-parse --abbrev-ref HEAD
-                        WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
-                        OUTPUT_VARIABLE GIT_BRANCH
-                        OUTPUT_STRIP_TRAILING_WHITESPACE)
-        execute_process(COMMAND ${GIT_EXECUTABLE} rev-parse --short HEAD
-                        WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
-                        OUTPUT_VARIABLE GIT_REVISION
-                        OUTPUT_STRIP_TRAILING_WHITESPACE)
-        set(COLOBOT_VERSION_UNRELEASED "${COLOBOT_VERSION_UNRELEASED}-git-${GIT_BRANCH}~r${GIT_REVISION}")
-        set(COLOBOT_VERSION_DISPLAY "git-${GIT_BRANCH}~r${GIT_REVISION}")
-    else()
-        set(COLOBOT_VERSION_DISPLAY "${COLOBOT_VERSION_CODENAME}-${COLOBOT_VERSION_UNRELEASED}")
-    endif()
-else()
-    set(COLOBOT_VERSION_DISPLAY "${CMAKE_PROJECT_VERSION}${COLOBOT_VERSION_RELEASE_CODENAME}")
-endif()
-
-set(COLOBOT_VERSION_FULL "${CMAKE_PROJECT_VERSION}${COLOBOT_VERSION_UNRELEASED}${COLOBOT_VERSION_RELEASE_CODENAME}")
-message(STATUS "Building Colobot \"${COLOBOT_VERSION_CODENAME}\" (${COLOBOT_VERSION_FULL})")
-
-set(BUILD_NUMBER 0)
-if(NOT "$ENV{BUILD_NUMBER}" STREQUAL "")
-    set(BUILD_NUMBER "$ENV{BUILD_NUMBER}")
-    message(STATUS "CI build #${BUILD_NUMBER}")
-endif()
-
 
 # Compiler detection
 include("${PROJECT_SOURCE_DIR}/cmake/compilers/${CMAKE_CXX_COMPILER_ID}.cmake" OPTIONAL RESULT_VARIABLE COMPILER_INCLUDE)
@@ -73,10 +32,6 @@ if ("${SYSTEM_INCLUDE}" STREQUAL NOTFOUND)
     include("${PROJECT_SOURCE_DIR}/cmake/systems/Other.cmake")
 endif()
 
-##
-# Build options
-##
-
 # Build targets should be placed in the root build directory
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
 
@@ -84,6 +39,10 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
 list(PREPEND CMAKE_MODULE_PATH 
     ${PROJECT_SOURCE_DIR}/cmake
 )
+
+##
+# Build options
+##
 
 # Asserts can be enabled/disabled regardless of build type
 option(ASSERTS "Enable assert()s" ON)
@@ -141,6 +100,44 @@ option(COLOBOT_APPIMAGE_BASEPATH_OVERRIDE "Override base path specification so i
 if(NOT CMAKE_BUILD_TYPE)
     message(STATUS "Build type not specified - assuming RelWithDebInfo")
     set(CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel." FORCE)
+endif()
+
+##
+# Project version
+##
+set(COLOBOT_VERSION_CODENAME "Gold")
+set(COLOBOT_VERSION_RELEASE "alpha")
+
+if(COLOBOT_OFFICIAL_BUILD)
+    set(COLOBOT_VERSION_DISPLAY "${CMAKE_PROJECT_VERSION}-${COLOBOT_VERSION_RELEASE}")
+    set(COLOBOT_VERSION_FULL "${CMAKE_PROJECT_VERSION}-${COLOBOT_VERSION_RELEASE}")
+else()
+    # Append git characteristics to version string
+    if(EXISTS "${CMAKE_SOURCE_DIR}/.git")
+        find_package(Git)
+        execute_process(COMMAND ${GIT_EXECUTABLE} rev-parse --abbrev-ref HEAD
+                        WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
+                        OUTPUT_VARIABLE GIT_BRANCH
+                        OUTPUT_STRIP_TRAILING_WHITESPACE)
+        execute_process(COMMAND ${GIT_EXECUTABLE} rev-parse --short HEAD
+                        WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
+                        OUTPUT_VARIABLE GIT_REVISION
+                        OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+        set(COLOBOT_VERSION_DISPLAY "git-${GIT_BRANCH}~r${GIT_REVISION}")
+        set(COLOBOT_VERSION_FULL "${CMAKE_PROJECT_VERSION}-${COLOBOT_VERSION_RELEASE}-git-${GIT_BRANCH}~r${GIT_REVISION}")
+    else()
+        set(COLOBOT_VERSION_DISPLAY "${COLOBOT_VERSION_CODENAME}-${COLOBOT_VERSION_RELEASE}")
+        set(COLOBOT_VERSION_FULL "${CMAKE_PROJECT_VERSION}-${COLOBOT_VERSION_RELEASE}")
+    endif()
+endif()
+
+message(STATUS "Building Colobot '${COLOBOT_VERSION_CODENAME}' (${COLOBOT_VERSION_FULL})")
+
+set(BUILD_NUMBER 0)
+if(NOT "$ENV{BUILD_NUMBER}" STREQUAL "")
+    set(BUILD_NUMBER "$ENV{BUILD_NUMBER}")
+    message(STATUS "CI build #${BUILD_NUMBER}")
 endif()
 
 ##

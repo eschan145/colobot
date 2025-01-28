@@ -1,7 +1,8 @@
 #pragma once
 
+#include <string_view>
+
 // Macros set by CMake
-#cmakedefine PLATFORM_GNU @PLATFORM_GNU@
 #cmakedefine PLATFORM_MACOSX @PLATFORM_MACOSX@
 
 #ifdef PLATFORM_MACOSX
@@ -11,5 +12,12 @@
 
 #cmakedefine OPENAL_SOUND
 
-#define COLOBOT_DEFAULT_DATADIR "@COLOBOT_DATA_DIR@"
-#define COLOBOT_I18N_DIR "@COLOBOT_I18N_DIR@"
+namespace Config
+{
+
+// Default data directory
+inline constexpr std::string_view DATA_DIR = "@COLOBOT_DATA_DIR@";
+// Default language directory
+inline constexpr std::string_view LANG_DIR = "@COLOBOT_I18N_DIR@";
+
+}

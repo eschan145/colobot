@@ -217,21 +217,23 @@ bool CAutoTower::EventProcess(const Event &event)
         }
         else
         {
-            m_object->SetPartRotationY(1, m_angleYfinal);
-            m_object->SetPartRotationZ(2, m_angleZfinal);
-
-            if ( power != nullptr )
+            if ( energy < ENERGY_FIRE )
             {
-                energy = power->GetEnergy();
+                m_phase    = ATP_ZERO;
+                m_progress = 0.0f;
+                m_speed    = 1.0f/1.0f;
+            }
+            else
+            {
+                m_object->SetPartRotationY(1, m_angleYfinal);
+                m_object->SetPartRotationZ(2, m_angleZfinal);
                 energy -= ENERGY_FIRE;
                 power->SetEnergy(energy);
+                m_sound->Play(SOUND_GGG, m_object->GetPosition());
+                m_phase    = ATP_FIRE;
+                m_progress = 0.0f;
+                m_speed    = 1.0f/1.5f;
             }
-
-            m_sound->Play(SOUND_GGG, m_object->GetPosition());
-
-            m_phase    = ATP_FIRE;
-            m_progress = 0.0f;
-            m_speed    = 1.0f/1.5f;
         }
     }
 
@@ -418,7 +420,8 @@ bool CAutoTower::CreateInterface(bool bSelect)
     pos.y = oy+sy*0;
     ddim.x = 14.0f/640.0f;
     ddim.y = 66.0f/480.0f;
-    pw->CreateGauge(pos, ddim, 0, EVENT_OBJECT_GENERGY);
+    Ui::CGauge* pg = pw->CreateGauge(pos, ddim, 0, EVENT_OBJECT_GENERGY);
+    pg->SetLevel(GetObjectEnergyLevel(m_object));
 
     pos.x = ox+sx*0.0f;
     pos.y = oy+sy*0;

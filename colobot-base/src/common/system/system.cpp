@@ -20,6 +20,7 @@
 
 #include "common/system/system.h"
 
+#include "common/config.h"
 #include "common/logger.h"
 #include "common/stringutils.h"
 #include "common/version.h"
@@ -200,17 +201,17 @@ std::filesystem::path CSystemUtils::GetBasePath() const
 std::filesystem::path CSystemUtils::GetDataPath() const
 {
     if constexpr (Version::RELATIVE_PATHS)
-        return GetBasePath() / COLOBOT_DEFAULT_DATADIR;
+        return GetBasePath() / Config::DATA_DIR;
     else
-        return COLOBOT_DEFAULT_DATADIR;
+        return Config::DATA_DIR;
 }
 
 std::filesystem::path CSystemUtils::GetLangPath() const
 {
     if constexpr (Version::RELATIVE_PATHS)
-        return GetBasePath() / COLOBOT_I18N_DIR;
+        return GetBasePath() / Config::LANG_DIR;
     else
-        return COLOBOT_I18N_DIR;
+        return Config::LANG_DIR;
 }
 
 std::filesystem::path CSystemUtils::GetSaveDir() const
