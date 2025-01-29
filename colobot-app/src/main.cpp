@@ -115,7 +115,7 @@ int main(int argc, char *argv[])
 
     // Add file output to the logger
     std::filesystem::path logFileName;
-    
+
     if constexpr (Version::DEVELOPMENT_BUILD)
     {
         logFileName = "log.txt";

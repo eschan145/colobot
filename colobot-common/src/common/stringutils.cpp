@@ -183,7 +183,7 @@ unsigned int StrUtils::HexStringToInt(std::string_view str)
         if ('0' <= c && c <= '9') return static_cast<unsigned>(c - '0');
         if ('A' <= c && c <= 'F') return static_cast<unsigned>(c - 'A' + 10);
         if ('a' <= c && c <= 'f') return static_cast<unsigned>(c - 'a' + 10);
-        
+
         throw std::invalid_argument(std::string("Invalid character: ") + c);
     };
 
@@ -328,10 +328,10 @@ int StrUtils::UTF8StringLength(std::string_view string)
 
         if (count <= 0)
             throw std::invalid_argument("Invalid character");
-        
+
         if (string.size() < static_cast<size_t>(count))
             throw std::invalid_argument("Invalid character");
-        
+
         for (int i = 1; i < count; i++)
             if (!UTF8IsContinuationByte(static_cast<char8_t>(string[i])))
                 throw std::invalid_argument("Invalid character");

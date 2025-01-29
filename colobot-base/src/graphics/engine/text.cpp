@@ -1037,7 +1037,7 @@ void CText::StringToUTFCharList(std::string_view text, std::vector<StrUtils::Cod
         int len = StrUtils::UTF8CharLength(text);
 
         if (len == 0) break;
-        
+
         StrUtils::CodePoint ch = std::string_view(text.data(), len);
 
         chars.push_back(ch);

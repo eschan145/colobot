@@ -7,4 +7,3 @@
  * \namespace CBot
  * \brief CBot engine
  */
- 

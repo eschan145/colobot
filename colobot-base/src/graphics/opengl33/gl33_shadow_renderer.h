@@ -77,7 +77,7 @@ private:
     // Shader program
     GLuint m_program = 0;
 
-    // Framebuffer 
+    // Framebuffer
     GLuint m_framebuffer = 0;
     int m_width = 0;
     int m_height = 0;

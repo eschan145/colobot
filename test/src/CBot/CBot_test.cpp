@@ -473,7 +473,7 @@ TEST_F(CBotUT, BasicOperations)
             ASSERT(0 <= 1);
             ASSERT(1 <= 1);
         }
-        
+
         extern void BasicMath()
         {
             ASSERT(2+2 == 4);
@@ -483,7 +483,7 @@ TEST_F(CBotUT, BasicOperations)
             ASSERT(5%2 == 1);
             ASSERT(5**3 == 125);
         }
-        
+
         extern void BitwiseMath()
         {
             ASSERT((1 << 5) == 32);
@@ -495,7 +495,7 @@ TEST_F(CBotUT, BasicOperations)
             ASSERT((5 ^ 3) == 6);
             ASSERT((~1024) == -1025);
         }
-        
+
         extern void BooleanLogic()
         {
             ASSERT(true);
@@ -513,7 +513,7 @@ TEST_F(CBotUT, BasicOperations)
             ASSERT(false ^ true);
             ASSERT(!(false ^ false));
         }
-        
+
         extern void NumberFormats()
         {
             ASSERT(2.0 == 2);
@@ -581,14 +581,14 @@ TEST_F(CBotUT, VarImplicitCast)
             string b = a;
             ASSERT(b == "5");
         //"    ASSERT(b == a);
-            
+
             string c = "2.5";
         //"    ASSERT(c == 2.5);
         //"    float d = c;
         //"    ASSERT(d == c);
         //"    ASSERT(d == 2.5);
         }
-        
+
         extern void AssignImplicitCast()
         {
             string a = 2;
@@ -962,7 +962,7 @@ TEST_F(CBotUT, ArraysOfClasses)
             test[0] = new TestClass();
             test[0].i = 5;
             ASSERT(test[0].i == 5);
-            
+
             TestClass[] test2;
         }
     )");
@@ -979,7 +979,7 @@ TEST_F(CBotUT, Functions)
         {
             return true;
         }
-        
+
         extern void Functions()
         {
             ASSERT(testFunction());
@@ -996,7 +996,7 @@ TEST_F(CBotUT, FunctionRecursion)
             if(x == 0) return 1;
             return fact(x-1) * x;
         }
-        
+
         extern void FunctionRecursion()
         {
             ASSERT(fact(10) == 3628800);
@@ -1027,7 +1027,7 @@ TEST_F(CBotUT, FunctionOverloading)
         {
             return 2;
         }
-        
+
         extern void FunctionOverloading()
         {
             ASSERT(func("5") == 1);
@@ -1177,7 +1177,7 @@ TEST_F(CBotUT, ClassConstructor)
                 instanceCounter++;
             }
         }
-        
+
         extern void ClassConstructor()
         {
             TestClass t1();
@@ -1207,7 +1207,7 @@ TEST_F(CBotUT, ClassDestructor)
                 instanceCounter--;
             }
         }
-        
+
         extern void ClassDestructor()
         {
             TestClass t1();
@@ -1890,7 +1890,7 @@ TEST_F(CBotUT, StringEscapeCodes)
             ASSERT("  \u0022  " == "  \"  ");
             ASSERT("  \u0027  " == "  \'  ");
             ASSERT("  \u005C  " == "  \\  ");
-        
+
             ASSERT("\u00A9" == "\xC2\xA9");
             ASSERT("\u00AE" == "\xC2\xAE");
             ASSERT("\u262E" == "\xE2\x98\xAE");
@@ -2560,7 +2560,7 @@ TEST_F(CBotUT, PassNullAsArgument)
     ExecuteTest(R"(
         void Test(BaseClass b) {}
         void Test(SubClass s) {}
-        
+
         extern void AmbiguousCallArgumentNull() {
             Test(null);
         }
@@ -2589,7 +2589,7 @@ TEST_F(CBotUT, ClassImplicitCastArguments)
     ExecuteTest(R"(
         void Test(BaseClass b, SubClass s) {}
         void Test(SubClass s, BaseClass b) {}
-        
+
         extern void UpcastAmbiguousCall() {
             Test(new SubClass(), new SubClass());
         }
@@ -2601,7 +2601,7 @@ TEST_F(CBotUT, ClassImplicitCastArguments)
         bool Test(BaseClass b, SubClass s) { return false; }
         bool Test(SubClass s, BaseClass b) { return false; }
         bool Test(SubClass s, SubClass s2) { return true; }
-        
+
         extern void NoErrorMoreSpecific() {
             ASSERT(true == Test(new SubClass(), new SubClass()));
         }
@@ -2613,7 +2613,7 @@ TEST_F(CBotUT, AmbiguousCallWithNumbers)
     ExecuteTest(R"(
         void Test(int i, float f) {}
         void Test(float f, int i) {}
-        
+
         extern void AmbiguousCallNumbers() {
             Test(1, 2);
         }
@@ -2625,7 +2625,7 @@ TEST_F(CBotUT, AmbiguousCallWithNumbers)
         bool Test(int i, float f) { return false; }
         bool Test(float f, int i) { return false; }
         bool Test(int i, int ii)  { return true; }
-        
+
         extern void NoErrorMoreSpecific() {
             ASSERT(true == Test(1, 2));
         }
@@ -2642,7 +2642,7 @@ TEST_F(CBotUT, ClassMethodWithPublicKeyword)
 
     ExecuteTest(R"(
         int Test() { return 2; }
-        
+
         extern void DontCallMethodInTestClass()
         {
             ASSERT(2 == Test());
@@ -2651,9 +2651,9 @@ TEST_F(CBotUT, ClassMethodWithPublicKeyword)
 
     ExecuteTest(R"(
         int Test() { return 2; }
-        
+
         public class OtherClass {}
-        
+
         extern void OtherClass::TestCallWithThis()
         {
             this.Test();
@@ -2741,7 +2741,7 @@ TEST_F(CBotUT, ClassTestPrivateMember)
     auto publicProgram = ExecuteTest(R"(
         public class BaseClass {
             private int a_private = 2;
-        
+
             bool test() {
                 a_private = 2;
                 int a = a_private;
@@ -2905,7 +2905,7 @@ TEST_F(CBotUT, ParametersWithDefaultValues)
         extern void NextParamNeedsDefaultValue() {
         }
         void Test(int i = 1, float f) {}
-        
+
         )",
         CBotErrDefaultValue
     );
@@ -2914,7 +2914,7 @@ TEST_F(CBotUT, ParametersWithDefaultValues)
         extern void ParamMissingExpression() {
         }
         void Test(int i = 1, float f = ) {}
-        
+
         )",
         CBotErrNoExpression
     );
@@ -2923,7 +2923,7 @@ TEST_F(CBotUT, ParametersWithDefaultValues)
         extern void ParamDefaultBadType() {
         }
         void Test(int i = 1, float f = null) {}
-        
+
         )",
         CBotErrBadType1
     );
@@ -2934,7 +2934,7 @@ TEST_F(CBotUT, ParametersWithDefaultValues)
         }
         void Test(int i = 1) {}
         void Test(float f = 2.0) {}
-        
+
         )",
         CBotErrAmbiguousCall
     );
@@ -2945,7 +2945,7 @@ TEST_F(CBotUT, ParametersWithDefaultValues)
         }
         void Test(int i, float f = 2) {}
         void Test(int i) {}
-        
+
         )",
         CBotErrAmbiguousCall
     );
@@ -2956,7 +2956,7 @@ TEST_F(CBotUT, ParametersWithDefaultValues)
         }
         void Test(int i, float f = 2.0) {}
         void Test(int i, float f = 2.0, int ii = 1) {}
-        
+
         )",
         CBotErrAmbiguousCall
     );
@@ -3085,7 +3085,7 @@ TEST_F(CBotUT, ClassInheritanceMethodsOutOfClass)
             return c;
         }
         int BaseClass::testInsideBaseOverride() { return testOverride(); }
-        
+
         public class MidClass extends BaseClass {
             int b = 1011;
             int c = 1213;
@@ -3110,7 +3110,7 @@ TEST_F(CBotUT, ClassInheritanceMethodsOutOfClass)
             return super.testInsideBaseOverride();
         }
         int MidClass::testInsideMidOverride() { return testOverride(); }
-        
+
         public class SubClass extends MidClass {
             int c = 1617;
             int d = 1819;
@@ -3139,7 +3139,7 @@ TEST_F(CBotUT, ClassInheritanceMethodsOutOfClass)
             return super.testSuper();
         }
         int SubClass::testInsideSubOverride() { return testOverride(); }
-        
+
         extern void InheritanceMethodsOutOfClass()
         {
             BaseClass bc();
@@ -3203,7 +3203,7 @@ TEST_F(CBotUT, ClassInheritanceTestThisOutOfClass)
         }
         BaseClass BaseClass::testSuperReturnThis(){ return this; }
         BaseClass BaseClass::testReturnThisFromBaseClass() { return this; }
-        
+
         public class MidClass extends BaseClass {
             int b = 1011;
             int c = 1213;
@@ -3221,7 +3221,7 @@ TEST_F(CBotUT, ClassInheritanceTestThisOutOfClass)
         }
         MidClass MidClass::testSuperReturnThis(){ return super.testSuperReturnThis(); }
         MidClass MidClass::testReturnThisFromMidClass() { return this; }
-        
+
         public class SubClass extends MidClass {
             int c = 1617;
             int d = 1819;
@@ -3241,7 +3241,7 @@ TEST_F(CBotUT, ClassInheritanceTestThisOutOfClass)
         }
         SubClass SubClass::testSuperReturnThis(){ return super.testSuperReturnThis(); }
         SubClass SubClass::testReturnThisFromSubClass() { return this; }
-        
+
         extern void ClassInheritanceTestThisOutOfClass()
         {
             BaseClass bc();
@@ -3326,7 +3326,7 @@ TEST_F(CBotUT, ClassTestProtectedMethod)
 
     ExecuteTest(R"(
         public class SubClass extends BaseClass {}
-        
+
         extern void TestErrorProtected_2() {
             SubClass s();
             s.BaseClassProtected();
@@ -3397,7 +3397,7 @@ TEST_F(CBotUT, ClassTestPrivateMethod)
 
     ExecuteTest(R"(
         public class SubClass extends BaseClass {}
-        
+
         extern void TestErrorPrivate_2() {
             SubClass s();
             s.BaseClassPrivate();

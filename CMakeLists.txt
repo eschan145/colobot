@@ -36,7 +36,7 @@ endif()
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
 
 # Include cmake directory with some additional scripts
-list(PREPEND CMAKE_MODULE_PATH 
+list(PREPEND CMAKE_MODULE_PATH
     ${PROJECT_SOURCE_DIR}/cmake
 )
 

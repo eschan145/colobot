@@ -271,7 +271,7 @@ void GLTFLoader::ReadMaterials()
             if (pbr.contains("baseColorFactor"))
             {
                 const auto& color = pbr["baseColorFactor"];
-                
+
                 mat.albedoColor = {
                     color[0].get<float>(),
                     color[1].get<float>(),

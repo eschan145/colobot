@@ -378,7 +378,7 @@ void CInput::LoadKeyBindings()
 
             if (!GetConfigFile().GetArrayProperty("Keybindings", m_keyTable[static_cast<InputSlot>(i)], keys))
                 continue;
-            
+
             if (keys.size() >= 1) b.primary = keys[0];
             if (keys.size() >= 2) b.secondary = keys[1];
 

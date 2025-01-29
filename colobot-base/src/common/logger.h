@@ -212,7 +212,7 @@ private:
 
     static void PrintValue(std::string& string, float value);
     static void PrintValue(std::string& string, double value);
-    
+
     static void PrintValue(std::string& string, const char* value);
     static void PrintValue(std::string& string, std::string_view value);
     static void PrintValue(std::string& string, const std::string& value);

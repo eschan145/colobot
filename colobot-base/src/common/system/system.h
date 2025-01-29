@@ -139,7 +139,7 @@ public:
 protected:
     //! Creates system utils for specific platform
     static std::unique_ptr<CSystemUtils> Create();
-    
+
     //! Default signal handler for std::signal()
     static void DefaultSignalHandler(int sig);
 

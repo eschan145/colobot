@@ -13,7 +13,7 @@ target_sources(Colobot-Base PRIVATE
     scene_conditions.h
     scoreboard.cpp
     scoreboard.h
-    
+
     parser/parser.cpp
     parser/parser.h
     parser/parserexceptions.cpp

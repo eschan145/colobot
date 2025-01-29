@@ -186,7 +186,7 @@ ExceptionHolder *ExceptionHolder::Create(T ex)
 	printf("%s\n", err.c_str()); \
 	abort(); exit(-1); }
 #else
-#if __cpp_lib_uncaught_exceptions 	
+#if __cpp_lib_uncaught_exceptions
 #define HM_UNCAUGHT_EXCEPTION std::uncaught_exceptions
 #else
 #define HM_UNCAUGHT_EXCEPTION std::uncaught_exception

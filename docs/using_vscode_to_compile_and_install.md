@@ -49,7 +49,7 @@ Create folder .vscode if there is none. Inside that folder create a file setting
 ### Compilation and installation
 
 1. Open cmake extension in the left menu and click on `build all projects`
-    
+
     ![alt text](images/cmake-build-all.png "cmake build all screenshot")
 2. On the status line at the bottom change the compilation target to `install`.
 3. Click `build` to build the project.

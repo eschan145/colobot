@@ -80,7 +80,7 @@ CScript::CScript(COldObject* object)
 
 CScript::~CScript()
 {
-    
+
 }
 
 

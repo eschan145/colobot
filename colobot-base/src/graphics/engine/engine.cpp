@@ -2833,7 +2833,7 @@ void CEngine::Draw3DScene()
     terrainRenderer->SetShadowMap(m_shadowMap);
     terrainRenderer->SetLight(glm::vec4(1.0, 1.0, -1.0, 0.0), 1.0f, glm::vec3(1.0));
     terrainRenderer->SetSky(Color(1.0, 1.0, 1.0), 0.2f);
-    
+
     if (m_shadowMapping)
         terrainRenderer->SetShadowParams(m_shadowRegions, shadowParams);
     else

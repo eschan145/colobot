@@ -74,11 +74,11 @@ jobs:
         wget -N https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
         chmod +x linuxdeploy-x86_64.AppImage
         ./linuxdeploy-x86_64.AppImage --appimage-extract
-        
+
         # Create AppImage
         NO_STRIP=1 ./squashfs-root/AppRun -e colobot --output appimage --appdir colobot.AppDir -d desktop/colobot.desktop -i ../desktop/colobot.svg
         chmod +x Colobot-x86_64.AppImage
-        
+
         # Prepare folder for zip
         mkdir -p appimage
         cp -rp ../install/data appimage/data

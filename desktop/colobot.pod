@@ -6,7 +6,7 @@ colobot - educational programming strategy game
 
 =head1 SYNOPSIS
 
-B<colobot> 
+B<colobot>
 
 =head1 DESCRIPTION
 
@@ -70,7 +70,7 @@ Set datadir mod path
 
 =item B<-loglevel> I<trace>|I<debug>|I<info>|I<warn>|I<error>|I<none>.
 
-Set log level. 
+Set log level.
 
 =item B<-debug> I<all>|I<event>|I<models>|...
 
