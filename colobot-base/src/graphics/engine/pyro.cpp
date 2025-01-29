@@ -311,7 +311,6 @@ bool CPyro::Create(PyroType type, CObject* obj, float force)
                     glm::vec2 dim;
                     dim.x = 0.1f;
                     dim.y = dim.x;
-                    dim.z = dim.y;
                     m_particle->CreateParticle(
                         pos, speed, dim, PARTIBLOOD,
                         Math::Rand()*3.0f,
