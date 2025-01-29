@@ -8,19 +8,27 @@ jobs:
     container: ${{ matrix.container }}
     strategy:
       matrix:
-        target_os: [linux]
-        host_os: [ubuntu-20.04, ubuntu-22.04]
-        container: ['']
-        preset: [Linux-CI-gcc]
         include:
+          - host_os: ubuntu-20.04
+            container: ''
+            preset: Linux-CI-gcc
+            artifact-tag: ubuntu-20.04-gcc
+          - host_os: ubuntu-22.04
+            container: ''
+            preset: Linux-CI-gcc
+            artifact-tag: ubuntu-22.04-gcc
           - host_os: ubuntu-22.04
             container: 'debian:unstable-slim'
             preset: Linux-CI-gcc
+            artifact-tag: debian-unstable-gcc
           - host_os: ubuntu-22.04
             container: 'debian:testing-slim'
             preset: Linux-CI-gcc
+            artifact-tag: debian-testing-gcc
           - host_os: ubuntu-22.04
+            container: ''
             preset: Linux-CI-clang
+            artifact-tag: ubuntu-22.04-clang
       fail-fast: false
     env:
       # Actions run as root in-container, as normal user outside
@@ -62,9 +70,9 @@ jobs:
       run: patchelf --set-rpath '.' install/colobot
       if: ${{ env.APPIMAGE == true }}
     - name: Upload build
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
-        name: ${{matrix.target_os}}-debug
+        name: ${{ matrix.artifact-tag }}-debug
         path: install
       if: ${{ env.APPIMAGE == true }}
     - name: Create AppImage
@@ -86,9 +94,9 @@ jobs:
         cp -p Colobot-x86_64.AppImage appimage/colobot
       if: ${{ env.APPIMAGE == true }}
     - name: Upload AppImage
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
-        name: ${{matrix.target_os}}-debug-AppImage
+        name: ${{ matrix.artifact-tag }}-debug-AppImage
         path: build/appimage
       if: ${{ env.APPIMAGE == true }}
     - name: Run tests
@@ -96,9 +104,9 @@ jobs:
       working-directory: build
       run: ./Colobot-UnitTests --gtest_output=xml:gtestresults.xml
     - name: Upload test results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
-        name: Test results (${{ matrix.target_os }}, ${{ matrix.host_os }})
+        name: Test results (${{ matrix.artifact-tag }})
         path: build/gtestresults.xml
   build-macos:
     runs-on: ${{ matrix.host_os }}
@@ -131,7 +139,7 @@ jobs:
       run: ./Colobot-UnitTests --gtest_output=xml:gtestresults.xml
       if: matrix.target_os == 'macos'
     - name: Upload test results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Test results (${{ matrix.target_os }}, ${{ matrix.host_os }})
         path: build/gtestresults.xml
@@ -202,7 +210,7 @@ jobs:
     - name: Install
       run: cmake --build --preset Windows-CI --target install
     - name: Upload build
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: windows-msvc-debug-${{ matrix.arch }}
         path: install
@@ -210,7 +218,7 @@ jobs:
       working-directory: build
       run: ./Colobot-UnitTests --gtest_output=xml:gtestresults.xml
     - name: Upload test results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: 'Test results (windows, MSVC, ${{ matrix.arch }})'
         path: build/gtestresults.xml
@@ -231,7 +239,7 @@ jobs:
       working-directory: build
       run: make doc
     - name: Upload docs
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: doc
         path: build/doc
