@@ -1284,7 +1284,8 @@ bool CMotionHuman::EventFrame(const Event &event)
     {
         if ( m_progress >= 1.0f )
         {
-            CObjectManager::GetInstancePointer()->DeleteObject(m_object);
+            // CObjectManager::GetInstancePointer()->DeleteObject(m_object);
+            m_object->SetSelectable(false);
             return false;
         }
 
