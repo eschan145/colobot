@@ -61,7 +61,7 @@ body:
     required: true
 - type: input
   attributes:
-    label: Are you able to reproduce the crsah?
+    label: Are you able to reproduce the crash?
   validations:
     required: true
 - type: textarea
