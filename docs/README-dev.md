@@ -108,4 +108,4 @@ Currently, only a few classes and structs are documented properly. If you can, p
 
 ## Coding rules
 
-Please refer to the [CONTRIBUTING.md](CONTRIBUTING.md#coding-style) file.
+Please refer to the [CONTRIBUTING.md](/CONTRIBUTING.md#coding-style) file.
