@@ -31,7 +31,7 @@ namespace Gfx
  * \enum PyroType
  * \brief Type of pyro effect
  */
-enum PyroType
+enum PyroType : unsigned char
 {
     PT_NULL     = 0,
     PT_FRAGT    = 1,        //! < fragmentation of technical object

@@ -21,10 +21,9 @@
 
 #include "object/task/task.h"
 
-#include "object/interface/trace_drawing_object.h"
-
 #include <glm/glm.hpp>
 
+enum class TraceColor : signed char;
 
 enum TaskPenPhase
 {

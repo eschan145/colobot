@@ -69,6 +69,8 @@ struct ObjectPart
     glm::mat4    matWorld;
 };
 
+class CSoundInterface;
+
 namespace Ui
 {
 class CObjectInterface;
@@ -77,6 +79,9 @@ class CObjectInterface;
 namespace Gfx
 {
 enum class EngineShadowType : unsigned char;
+
+class CParticle;
+class CLightManager;
 }
 
 

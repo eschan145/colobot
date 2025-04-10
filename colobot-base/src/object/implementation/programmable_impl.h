@@ -21,11 +21,12 @@
 
 #include "object/interface/programmable_object.h"
 #include "object/interface/interactive_object.h"
-#include "object/interface/trace_drawing_object.h"
 
 #include <glm/glm.hpp>
 
 #include <sstream>
+
+enum class TraceColor : signed char;
 
 class CObject;
 

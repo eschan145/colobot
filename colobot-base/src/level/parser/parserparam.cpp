@@ -26,8 +26,16 @@
 
 #include "common/resources/resourcemanager.h"
 
+#include "graphics/engine/camera.h"
 #include "graphics/engine/engine.h"
+#include "graphics/engine/planet_type.h"
+#include "graphics/engine/pyro_type.h"
+#include "graphics/engine/water.h"
 
+#include "object/mission_type.h"
+
+#include "level/build_type.h"
+#include "level/research_type.h"
 #include "level/robotmain.h"
 #include "level/scoreboard.h"
 
@@ -986,21 +994,21 @@ int CLevelParserParam::AsResearchFlag(int def)
     return AsResearchFlag();
 }
 
-CScoreboard::SortType CLevelParserParam::ToSortType(std::string value)
+ScoreboardSortType CLevelParserParam::ToSortType(std::string value)
 {
-    if (value == "Points") return CScoreboard::SortType::SORT_POINTS;
-    if (value == "Name"  ) return CScoreboard::SortType::SORT_ID;
-    return CScoreboard::SortType::SORT_ID;
+    if (value == "Points") return ScoreboardSortType::SORT_POINTS;
+    if (value == "Name"  ) return ScoreboardSortType::SORT_ID;
+    return ScoreboardSortType::SORT_ID;
 }
 
-CScoreboard::SortType CLevelParserParam::AsSortType()
+ScoreboardSortType CLevelParserParam::AsSortType()
 {
     if (m_empty)
         throw CLevelParserExceptionMissingParam(this);
     return ToSortType(m_value);
 }
 
-CScoreboard::SortType CLevelParserParam::AsSortType(CScoreboard::SortType def)
+ScoreboardSortType CLevelParserParam::AsSortType(ScoreboardSortType def)
 {
     if (m_empty)
         return def;

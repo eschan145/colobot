@@ -26,11 +26,11 @@
 
 #include "graphics/core/color.h"
 
-#include "object/interface/trace_drawing_object.h"
-
-#include "sound/sound_type.h"
-
 #include <vector>
+
+enum SoundType : signed char;
+
+enum class TraceColor : signed char;
 
 class CRobotMain;
 class CObject;
@@ -68,7 +68,7 @@ const short SH_MAX = 3;
 // type == 4    ->  text     (white background)
 
 
-enum ParticleType
+enum ParticleType : unsigned int
 {
     PARTIEXPLOT     = 1,        //! < technology explosion
     PARTIEXPLOO     = 2,        //! < organic explosion
@@ -217,7 +217,7 @@ struct Track
 
 struct WheelTrace
 {
-    TraceColor      color = TraceColor::Black;
+    TraceColor      color;
     glm::vec3    pos[4];
 };
 

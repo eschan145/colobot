@@ -37,7 +37,7 @@ class CCamera;
 class CEngine;
 } // namespace Gfx
 
-enum MainMovieType
+enum MainMovieType : unsigned char
 {
     MM_NONE,
     MM_SATCOMopen,

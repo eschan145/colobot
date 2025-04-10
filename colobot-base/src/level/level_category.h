@@ -21,7 +21,7 @@
 
 #include <string>
 
-enum class LevelCategory
+enum class LevelCategory : unsigned int
 {
     Exercises,
     Challenges,

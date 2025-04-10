@@ -26,7 +26,7 @@ namespace Gfx
  * \enum PlanetType
  * \brief Type of planet which determines when it is displayed
  */
-enum PlanetType
+enum PlanetType : unsigned char
 {
     Sky,       //!< normal planets, orbiting in the sky
     OuterSpace //!< only visible during spaceship flight

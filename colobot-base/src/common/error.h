@@ -28,7 +28,7 @@
  * \enum Error
  * \brief Type of error or info message
  */
-enum Error
+enum Error : unsigned int
 {
     ERR_OK                = 0,        //!<  ok
     ERR_UNKNOWN           = 1,        //!<  any error

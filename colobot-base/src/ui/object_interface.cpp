@@ -30,6 +30,8 @@
 #include "graphics/engine/terrain.h"
 #include "graphics/engine/water.h"
 
+#include "level/build_type.h"
+#include "level/research_type.h"
 #include "level/robotmain.h"
 
 #include "math/geometry.h"
@@ -42,6 +44,10 @@
 
 #include "object/motion/motion.h"
 #include "object/motion/motionvehicle.h"
+
+#include "object/task/taskflag.h"
+#include "object/task/taskmanip.h"
+#include "object/task/taskshield.h"
 
 #include "object/subclass/shielder.h"
 
@@ -637,7 +643,7 @@ bool CObjectInterface::EventProcess(const Event &event)
 
         if ( action == EVENT_OBJECT_PEN0 )  // up
         {
-            err = m_taskExecutor->StartTaskPen(false);
+            err = m_taskExecutor->StartTaskPen(false, TraceColor::Default);
         }
         if ( action == EVENT_OBJECT_PEN1 )  // black
         {

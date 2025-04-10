@@ -21,6 +21,7 @@
 #include "object/auto/autoconvert.h"
 
 #include "graphics/engine/engine.h"
+#include "graphics/engine/particle.h"
 
 #include "level/robotmain.h"
 

@@ -24,25 +24,16 @@
 
 #pragma once
 
-#include "app/pausemanager.h"
-
 #include "common/error.h"
 #include "common/event.h"
 #include "common/singleton.h"
 
-#include "graphics/engine/camera.h"
-#include "graphics/engine/particle.h"
+#include "graphics/core/color.h"
 
-#include "level/build_type.h"
-#include "level/level_category.h"
-#include "level/mainmovie.h"
-#include "level/research_type.h"
-
-#include "object/drive_type.h"
 #include "object/mission_type.h"
 #include "object/object_type.h"
-#include "object/tool_type.h"
 
+#include <array>
 #include <filesystem>
 #include <deque>
 #include <map>
@@ -97,11 +88,26 @@ class CScoreboard;
 class CPlayerProfile;
 class CSettings;
 class COldObject;
+class CObject;
 class CPauseManager;
+class CMainMovie;
 struct ActivePause;
+
+enum MainMovieType : unsigned char;
+enum PauseType : unsigned char;
+enum PauseMusic : unsigned char;
+
+enum BuildType : unsigned int;
+enum ResearchType : unsigned int;
+
+enum class DriveType : unsigned int;
+enum class LevelCategory : unsigned int;
+enum class ToolType : unsigned int;
 
 namespace Gfx
 {
+enum ParticleType : unsigned int;
+
 class CEngine;
 class CLightManager;
 class CWater;
@@ -111,6 +117,8 @@ class COldModelManager;
 class CPlanet;
 class CTerrain;
 class CModelManager;
+class CCamera;
+class CParticle;
 }
 
 namespace Ui

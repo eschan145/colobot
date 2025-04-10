@@ -19,7 +19,7 @@
 
 #pragma once
 
-enum MissionType
+enum MissionType : unsigned char
 {
     MISSION_NORMAL = 0,
     MISSION_RETRO,

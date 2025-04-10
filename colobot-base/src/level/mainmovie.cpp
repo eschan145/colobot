@@ -22,6 +22,7 @@
 
 #include "app/app.h"
 
+#include "graphics/engine/camera.h"
 #include "graphics/engine/engine.h"
 
 #include "level/robotmain.h"

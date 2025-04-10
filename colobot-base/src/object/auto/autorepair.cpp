@@ -21,6 +21,7 @@
 #include "object/auto/autorepair.h"
 
 #include "graphics/engine/engine.h"
+#include "graphics/engine/particle.h"
 
 #include "level/parser/parserline.h"
 #include "level/parser/parserparam.h"

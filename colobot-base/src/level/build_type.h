@@ -26,7 +26,7 @@
  *
  * TODO: refactor
  */
-enum BuildType
+enum BuildType : unsigned int
 {
     BUILD_FACTORY       = (1<<0),       //! < BotFactory
     BUILD_DERRICK       = (1<<1),       //! < Derrick

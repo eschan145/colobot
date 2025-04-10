@@ -29,6 +29,7 @@
 #include "common/settings.h"
 
 #include "graphics/engine/engine.h"
+#include "graphics/engine/particle.h"
 
 #include "level/player_profile.h"
 #include "level/robotmain.h"

@@ -22,6 +22,8 @@
 
 #include "graphics/engine/engine.h"
 
+#include "math/const.h"
+
 #include "object/old_object.h"
 
 #include "physics/physics.h"

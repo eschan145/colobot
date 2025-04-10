@@ -62,6 +62,7 @@
 
 #include "graphics/core/transparency.h"
 
+#include "graphics/engine/camera.h"
 #include "graphics/engine/engine.h"
 
 namespace Ui

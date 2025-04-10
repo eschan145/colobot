@@ -24,6 +24,7 @@
 
 #include "graphics/engine/engine.h"
 
+#include "math/const.h"
 
 // Object's constructor.
 

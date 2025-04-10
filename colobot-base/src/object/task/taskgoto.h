@@ -34,14 +34,14 @@ class CObject;
 const int MAXPOINTS = 50000;
 const int NUMQUEUEBUCKETS = 32;
 
-enum TaskGotoGoal
+enum TaskGotoGoal : signed char
 {
     TGG_DEFAULT     = -1,   // default mode
     TGG_STOP        = 0,    // goes to destination pausing with precision
     TGG_EXPRESS     = 1,    // goes to destination without stopping
 };
 
-enum TaskGotoCrash
+enum TaskGotoCrash : signed char
 {
     TGC_DEFAULT     = -1,   // default mode
     TGC_HALT        = 0,    // stops if collision
@@ -53,7 +53,7 @@ enum TaskGotoCrash
 };
 
 
-enum TaskGotoPhase
+enum TaskGotoPhase : unsigned char
 {
     TGP_ADVANCE     = 1,    // advance
     TGP_LAND        = 2,    // landed

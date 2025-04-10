@@ -43,7 +43,7 @@ class CTerrain;
  * \enum WaterType
  * \brief Mode of water display
  */
-enum WaterType
+enum WaterType : unsigned char
 {
     //! No water
     WATER_NULL      = 0,

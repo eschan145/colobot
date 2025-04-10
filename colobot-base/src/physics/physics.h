@@ -29,10 +29,10 @@
 
 #include "object/object_type.h"
 
-#include "object/interface/trace_drawing_object.h"
-
 #include <glm/glm.hpp>
 
+
+enum class TraceColor : signed char;
 
 class CObject;
 class COldObject;

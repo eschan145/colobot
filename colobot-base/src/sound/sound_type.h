@@ -31,7 +31,7 @@
  * \enum    SoundType
  * \brief   Enum representing sound file
 **/
-enum SoundType
+enum SoundType : signed char
 {
   SOUND_NONE = -1,      /*!< Silence. */
   SOUND_CLICK = 0,      /*!< Keybinding change. */

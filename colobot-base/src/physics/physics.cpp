@@ -39,6 +39,7 @@
 
 #include "math/geometry.h"
 
+#include "object/drive_type.h"
 #include "object/object_manager.h"
 #include "object/old_object.h"
 

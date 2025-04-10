@@ -22,12 +22,20 @@
 #include "object/object.h"
 #include "object/object_interface_type.h"
 
-#include "object/interface/trace_drawing_object.h"
+enum TaskFlagOrder : unsigned char;
+enum TaskManipOrder : unsigned char;
+enum TaskManipArm : unsigned char;
+enum TaskShieldMode : unsigned char;
 
-#include "object/task/taskflag.h"
-#include "object/task/taskgoto.h"
-#include "object/task/taskmanip.h"
-#include "object/task/taskshield.h"
+enum TaskGotoGoal : signed char;
+enum TaskGotoCrash : signed char;
+
+enum class TraceColor : signed char;
+
+enum Error : unsigned int;
+
+class CBackgroundTask;
+class CForegroundTask;
 
 /**
  * \class CTaskExecutorObject
@@ -56,7 +64,7 @@ public:
     virtual Error StartTaskFire(float delay) = 0;
     virtual Error StartTaskFireAnt(glm::vec3 impact) = 0;
     virtual Error StartTaskSpiderExplo() = 0;
-    virtual Error StartTaskPen(bool down, TraceColor color = TraceColor::Default) = 0;
+    virtual Error StartTaskPen(bool down, TraceColor color) = 0;
     //@}
     //! Start a foreground task (scriptable tasks, not in UI)
     //@{

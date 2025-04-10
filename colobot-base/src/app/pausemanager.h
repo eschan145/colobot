@@ -30,7 +30,7 @@
 class CRobotMain;
 
 
-enum PauseType
+enum PauseType : unsigned char
 {
     PAUSE_NONE = 0,
     PAUSE_ENGINE = (1<<0), //!< pause all the CEngine classes
@@ -57,7 +57,7 @@ inline PauseType operator&(PauseType a, const PauseType& b)
     return a &= b;
 }
 
-enum PauseMusic
+enum PauseMusic : unsigned char
 {
     PAUSE_MUSIC_NONE = 0,
     PAUSE_MUSIC_EDITOR = 1,

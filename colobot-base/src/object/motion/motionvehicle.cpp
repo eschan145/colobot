@@ -38,6 +38,8 @@
 #include "object/interface/slotted_object.h"
 #include "object/interface/transportable_object.h"
 
+#include "object/task/task.h"
+
 #include "physics/physics.h"
 
 #include <stdio.h>

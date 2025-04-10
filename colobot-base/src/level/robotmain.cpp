@@ -56,8 +56,10 @@
 
 #include "graphics/model/model_manager.h"
 
+#include "level/build_type.h"
 #include "level/mainmovie.h"
 #include "level/player_profile.h"
+#include "level/research_type.h"
 #include "level/scene_conditions.h"
 #include "level/scoreboard.h"
 
@@ -3708,7 +3710,7 @@ void CRobotMain::CreateScene(bool soluce, bool fixScene, bool resetObject)
                 {
                     // Create the scoreboard
                     m_scoreboard = std::make_unique<CScoreboard>();
-                    m_scoreboard->SetSortType(line->GetParam("sort")->AsSortType(CScoreboard::SortType::SORT_ID));
+                    m_scoreboard->SetSortType(line->GetParam("sort")->AsSortType(ScoreboardSortType::SORT_ID));
                 }
                 continue;
             }

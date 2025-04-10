@@ -24,6 +24,8 @@
 
 #include "common/stringutils.h"
 
+#include "math/const.h"
+
 #include "level/robotmain.h"
 
 #include "object/old_object.h"

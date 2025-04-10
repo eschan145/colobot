@@ -26,17 +26,7 @@
 
 #include "graphics/core/color.h"
 
-#include "graphics/engine/camera.h"
-#include "graphics/engine/planet_type.h"
-#include "graphics/engine/pyro_type.h"
-#include "graphics/engine/water.h"
-
-#include "level/scoreboard.h"
-
-#include "object/drive_type.h"
-#include "object/mission_type.h"
 #include "object/object_type.h"
-#include "object/tool_type.h"
 
 #include <glm/glm.hpp>
 
@@ -51,11 +41,22 @@ class CLevelParserParam;
 using CLevelParserParamUPtr = std::unique_ptr<CLevelParserParam>;
 using CLevelParserParamVec = std::vector<CLevelParserParamUPtr>;
 
+enum MissionType : unsigned char;
+
+enum class DriveType : unsigned int;
+enum class ToolType : unsigned int;
+
+enum class ScoreboardSortType : int;
+
 namespace Gfx
 {
 class CEngine;
 
+enum CameraType : unsigned char;
 enum EngineObjectType : unsigned char;
+enum PlanetType : unsigned char;
+enum PyroType : unsigned char;
+enum WaterType : unsigned char;
 }
 
 class CLevelParserParam
@@ -96,7 +97,7 @@ public:
     Gfx::EngineObjectType AsTerrainType();
     int AsBuildFlag();
     int AsResearchFlag();
-    CScoreboard::SortType AsSortType();
+    ScoreboardSortType AsSortType();
     Gfx::PyroType AsPyroType();
     Gfx::CameraType AsCameraType();
     MissionType AsMissionType();
@@ -120,7 +121,7 @@ public:
     Gfx::EngineObjectType AsTerrainType(Gfx::EngineObjectType def);
     int AsBuildFlag(int def);
     int AsResearchFlag(int def);
-    CScoreboard::SortType AsSortType(CScoreboard::SortType def);
+    ScoreboardSortType AsSortType(ScoreboardSortType def);
     Gfx::PyroType AsPyroType(Gfx::PyroType def);
     Gfx::CameraType AsCameraType(Gfx::CameraType def);
     MissionType AsMissionType(MissionType def);
@@ -152,7 +153,7 @@ private:
     Gfx::EngineObjectType ToTerrainType(std::string value);
     int ToBuildFlag(std::string value);
     int ToResearchFlag(std::string value);
-    CScoreboard::SortType ToSortType(std::string value);
+    ScoreboardSortType ToSortType(std::string value);
     Gfx::PyroType ToPyroType(std::string value);
     Gfx::CameraType ToCameraType(std::string value);
     MissionType ToMissionType(std::string value);

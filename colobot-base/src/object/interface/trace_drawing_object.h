@@ -28,7 +28,7 @@ namespace Gfx
 struct Color;
 }
 
-enum class TraceColor
+enum class TraceColor : signed char
 {
     Default = -1,
 

@@ -27,6 +27,7 @@
 
 #include "common/resources/resourcemanager.h"
 
+#include "level/level_category.h"
 #include "level/robotmain.h"
 
 #include <SDL.h>

@@ -35,6 +35,8 @@
 #include "graphics/engine/terrain.h"
 #include "graphics/engine/water.h"
 
+#include "level/build_type.h"
+#include "level/research_type.h"
 #include "level/robotmain.h"
 
 #include "level/parser/parser.h"
@@ -52,6 +54,11 @@
 #include "object/interface/programmable_object.h"
 #include "object/interface/task_executor_object.h"
 #include "object/interface/trace_drawing_object.h"
+
+#include "object/task/taskgoto.h"
+#include "object/task/taskflag.h"
+#include "object/task/taskmanip.h"
+#include "object/task/taskshield.h"
 
 #include "object/subclass/base_alien.h"
 #include "object/subclass/exchange_post.h"

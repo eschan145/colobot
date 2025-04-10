@@ -28,7 +28,7 @@
 
 class CObject;
 
-enum TaskFlagOrder
+enum TaskFlagOrder : unsigned char
 {
     TFL_CREATE  = 0,    // sets
     TFL_DELETE  = 1,    // removes

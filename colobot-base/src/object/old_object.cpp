@@ -33,6 +33,9 @@
 #include "graphics/engine/pyro_manager.h"
 #include "graphics/engine/terrain.h"
 
+#include "level/build_type.h"
+#include "level/mainmovie.h"
+#include "level/research_type.h"
 #include "level/robotmain.h"
 #include "level/scoreboard.h"
 
@@ -51,6 +54,8 @@
 #include "object/motion/motion.h"
 #include "object/motion/motionvehicle.h"
 
+#include "object/task/task.h"
+
 #include "object/subclass/base_alien.h"
 #include "object/subclass/exchange_post.h"
 
@@ -61,7 +66,6 @@
 #include "script/scriptfunc.h"
 
 #include "ui/object_interface.h"
-#include "ui/studio.h"
 
 #include "ui/controls/edit.h"
 

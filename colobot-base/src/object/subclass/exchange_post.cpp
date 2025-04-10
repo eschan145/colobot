@@ -24,6 +24,7 @@
 
 #include "graphics/engine/engine.h"
 #include "graphics/engine/oldmodelmanager.h"
+#include "graphics/engine/particle.h"
 
 #include "level/parser/parserexceptions.h"
 #include "level/parser/parserline.h"

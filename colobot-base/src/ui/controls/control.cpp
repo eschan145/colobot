@@ -30,8 +30,10 @@
 
 #include "graphics/core/renderers.h"
 #include "graphics/core/transparency.h"
+#include "graphics/core/vertex.h"
 
 #include "graphics/engine/engine.h"
+#include "graphics/engine/particle.h"
 
 #include "math/func.h"
 

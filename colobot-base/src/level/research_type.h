@@ -24,7 +24,7 @@
  * \enum ResearchType
  * \brief Research actions available to user
  */
-enum ResearchType
+enum ResearchType : unsigned int
 {
     RESEARCH_TANK       = (1<<0),       //! < caterpillars
     RESEARCH_FLY        = (1<<1),       //! < wings

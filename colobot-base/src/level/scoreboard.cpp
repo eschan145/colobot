@@ -143,12 +143,12 @@ void CScoreboard::SetScore(int team, int points)
     m_score[team].points = points;
 }
 
-CScoreboard::SortType CScoreboard::GetSortType()
+ScoreboardSortType CScoreboard::GetSortType()
 {
     return m_sortType;
 }
 
-void CScoreboard::SetSortType(SortType type)
+void CScoreboard::SetSortType(ScoreboardSortType type)
 {
     m_sortType = type;
 }
@@ -162,7 +162,7 @@ std::vector<std::pair<int, CScoreboard::Score>> CScoreboard::GetSortedScores()
     {
         return *m_score.find(team);
     });
-    if (m_sortType == SortType::SORT_POINTS)
+    if (m_sortType == ScoreboardSortType::SORT_POINTS)
     {
         std::sort(sortedTeams.begin(), sortedTeams.end(), [&](std::pair<int, Score> teamA, std::pair<int, Score> teamB)
         {

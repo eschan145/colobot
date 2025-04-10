@@ -29,7 +29,7 @@ const float RADIUS_SHIELD_MIN = 40.0f;      // minimum radius of the protected z
 const float RADIUS_SHIELD_MAX = 100.0f;     // maximum radius of the protected zone
 
 
-enum TaskShieldPhase
+enum TaskShieldPhase : unsigned char
 {
     TS_UP1      = 1,    // up
     TS_UP2      = 2,    // up
@@ -39,7 +39,7 @@ enum TaskShieldPhase
     TS_DOWN2    = 6,    // down
 };
 
-enum TaskShieldMode
+enum TaskShieldMode : unsigned char
 {
     TSM_UP      = 1,    // deploys shield
     TSM_DOWN    = 2,    // returns the shield

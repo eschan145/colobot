@@ -30,14 +30,14 @@
 
 class CObject;
 
-enum TaskManipOrder
+enum TaskManipOrder : unsigned char
 {
     TMO_AUTO    = 0,    // deposits or takes automatically
     TMO_GRAB    = 1,    // takes an object
     TMO_DROP    = 2,    // deposits the object
 };
 
-enum TaskManipArm
+enum TaskManipArm : unsigned char
 {
     TMA_NEUTRAL = 1,    // empty arm at rest
     TMA_STOCK   = 2,    // right arm resting
@@ -48,7 +48,7 @@ enum TaskManipArm
     TMA_GRAB    = 7,    // takes immediately
 };
 
-enum TaskManipHand
+enum TaskManipHand : unsigned char
 {
     TMH_OPEN    = 1,    // open clamp
     TMH_CLOSE   = 2,    // closed clamp
