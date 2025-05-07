@@ -9,10 +9,6 @@ jobs:
     strategy:
       matrix:
         include:
-          - host_os: ubuntu-20.04
-            container: ''
-            preset: Linux-CI-gcc
-            artifact-tag: ubuntu-20.04-gcc
           - host_os: ubuntu-22.04
             container: ''
             preset: Linux-CI-gcc
@@ -29,6 +25,10 @@ jobs:
             container: ''
             preset: Linux-CI-clang
             artifact-tag: ubuntu-22.04-clang
+          - host_os: ubuntu-24.04
+            container: ''
+            preset: Linux-CI-gcc
+            artifact-tag: ubuntu-24.04-gcc
       fail-fast: false
     env:
       # Actions run as root in-container, as normal user outside
@@ -36,17 +36,11 @@ jobs:
       # Shortcuts the autodetection
       DEBIAN_FRONTEND: noninteractive
       # Only build the appImage
-      APPIMAGE: ${{ matrix.host_os == 'ubuntu-20.04' }}
+      APPIMAGE: ${{ matrix.artifact-tag == 'ubuntu-22.04-gcc' }}
     steps:
-    - name: Install back toolchain with gcc-11 available
-      run: $SUDO add-apt-repository ppa:ubuntu-toolchain-r/test -y && $SUDO apt-get update -y
-      if: matrix.host_os == 'ubuntu-20.04'
     - name: Install various indirect dependencies in slim containers
       run: $SUDO apt-get update && $SUDO apt-get install -y --no-install-recommends git ca-certificates wget
       if: matrix.container != ''
-    - name: Switch to gcc-11
-      run: $SUDO apt-get install gcc-11 g++-11 && $SUDO update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 100 --slave /usr/bin/g++ g++ /usr/bin/g++-11 --slave /usr/bin/gcov gcov /usr/bin/gcov-11 && $SUDO update-alternatives --set gcc /usr/bin/gcc-11
-      if: matrix.host_os == 'ubuntu-20.04'
     - name: Install Colobot dependencies
       run: $SUDO apt-get update && $SUDO apt-get install -y --no-install-recommends build-essential cmake libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev libsndfile1-dev libvorbis-dev libogg-dev libpng-dev libglew-dev libopenal-dev libphysfs-dev gettext po4a vorbis-tools librsvg2-bin xmlstarlet libglm-dev libmpg123-dev
     - name: Install clang

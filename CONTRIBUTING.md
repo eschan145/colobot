@@ -80,7 +80,7 @@ We also have an automated tool for checking the code style. See [colobot-lint re
 
 If your pull request breaks the coding style, you will have to fix it before it gets merged.
 
-## Commiting rules
+## Committing rules
 
 Please adhere to the following rules:
 * Commits should have meaningful descriptions.
