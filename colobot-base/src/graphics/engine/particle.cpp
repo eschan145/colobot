@@ -43,6 +43,7 @@
 #include "object/object_manager.h"
 
 #include "object/interface/damageable_object.h"
+#include "object/interface/transportable_object.h"
 
 #include "object/subclass/shielder.h"
 
@@ -3472,7 +3473,18 @@ void CParticle::DrawParticle(int sheet)
 
             m_renderer->SetTransparency(mode);
             m_renderer->SetColor(IntensityToColor(m_particle[i].intensity));
+            if (t == 4)
+            {
+                Color color1 = IntensityToColor(1.0f);
+                Color color2 = IntensityToColor(m_particle[i].intensity);
 
+                float r = std::min(color1.r + color2.r, 1.0f);
+                float g = std::min(color1.g + color2.g, 1.0f);
+                float b = std::min(color1.b + color2.b, 1.0f);
+                
+                Color blendedColor(r, g, b);
+                m_renderer->SetColor(blendedColor);
+            }
             if (m_particle[i].ray)  // ray?
             {
                 DrawParticleRay(i);
@@ -3538,6 +3550,7 @@ CObject* CParticle::SearchObjectGun(glm::vec3 old, glm::vec3 pos,
     {
         if (!obj->GetDetectable()) continue;  // inactive?
         if (obj == father) continue;
+        if (IsObjectBeingTransported(obj))  continue;
 
         ObjectType oType = obj->GetType();
 
